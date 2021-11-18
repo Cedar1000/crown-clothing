@@ -3,7 +3,7 @@ import './App.css';
 
 import { Route, Routes } from 'react-router';
 
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import Homepage from './pages/homepage/homepage.component';
 import Shopage from './pages/shopage/shop.component';
@@ -22,10 +22,21 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-      console.log(user);
+        userRef.onSnapshot((onSnapshot) =>
+          this.setState(
+            {
+              currentUser: { id: onSnapshot.id, ...onSnapshot.data() },
+            },
+            () => console.log(this.state)
+          )
+        );
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
     });
   }
 
