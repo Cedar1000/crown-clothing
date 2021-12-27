@@ -30,12 +30,12 @@ const getImageUrl = ({ imageUrl }) => {
 export const Image = styled.div`
   width: 100%;
   height: 95%;
+
+  ${getImageUrl}
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   margin-bottom: 5px;
-
-  ${getImageUrl}
 `;
 
 export const CollectionFooterDiv = styled.div`
