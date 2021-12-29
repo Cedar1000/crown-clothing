@@ -1,5 +1,5 @@
 const shopActionTypes = {
-  GET_BY_CATEGORY: 'GET_BY_CATEGORY',
+  UPDATE_COLLECTIONS: 'UPDATE_COLLECTIONS',
 };
 
 export default shopActionTypes;
