@@ -19,8 +19,6 @@ import Shopage from './pages/shopage/shop.component';
 import Header from './components/header/header.component.jsx';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component.jsx';
 import CheckoutPage from './pages/checkout/checkout.copmonent.jsx';
-import Collection from './pages/collection/collection.component';
-import CollectionsOverview from './components/collections-overview/collections-overview.component';
 
 const SignInWrapper = ({ currentUser }) => {
   return currentUser ? <Navigate to="/" replace /> : <SignInAndSignUpPage />;
@@ -57,10 +55,7 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<Homepage />} />
 
-          <Route path="/shop" element={<Shopage />}>
-            <Route path="" element={<CollectionsOverview />} />
-            <Route path=":categoryId" element={<Collection />} />
-          </Route>
+          <Route path="/shop/*" element={<Shopage />} />
 
           <Route path="/checkout" element={<CheckoutPage />} />
 
