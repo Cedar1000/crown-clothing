@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
   const navigate = useNavigate();
   return (
-    <MenuItemDiv size={size} onClick={() => navigate(`${linkUrl}`)}>
+    <MenuItemDiv size={size} onClick={() => navigate(`/shop/${linkUrl}`)}>
       <BackgroundImage className="background-image" imageUrl={imageUrl} />
       <ContentDiv className="content">
         <TitleHeader>{title.toUpperCase()}</TitleHeader>
