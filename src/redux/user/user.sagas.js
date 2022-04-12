@@ -3,7 +3,12 @@ import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 import userActionTypes from './user.types';
 
-import { signInSuccess, signInFailure } from './user.actions';
+import {
+  signInSuccess,
+  signInFailure,
+  signOutSuccess,
+  signOutFailure,
+} from './user.actions';
 
 import {
   auth,
@@ -20,6 +25,15 @@ export function* getSnapshotFromUserAuth(userAuth) {
     yield put(signInSuccess({ id: snapShot.id, ...snapShot.data() }));
   } catch (error) {
     yield put(signInFailure(error));
+  }
+}
+
+export function* signOut() {
+  try {
+    yield auth.signOut();
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
   }
 }
 
@@ -66,10 +80,15 @@ export function* onCheckUserSession() {
   yield takeLatest(userActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
+export function* onSignOutStart() {
+  yield takeLatest(userActionTypes.SIGN_OUT_START, signOut);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
-    call(isUserAuthenticated),
+    call(onCheckUserSession),
+    call(onSignOutStart),
   ]);
 }

@@ -4,12 +4,8 @@ import './App.css';
 //Router
 import { Route, Routes, Navigate } from 'react-router';
 
-//Firebase
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-
 //Redux
 import { connect } from 'react-redux';
-
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
 import { checkUserSession } from './redux/user/user.actions';
