@@ -30,17 +30,17 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
-    auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    // auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot((onSnapshot) =>
-          setCurrentUser({ id: onSnapshot.id, ...onSnapshot.data() })
-        );
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
+    //     userRef.onSnapshot((onSnapshot) =>
+    //       setCurrentUser({ id: onSnapshot.id, ...onSnapshot.data() })
+    //     );
+    //   } else {
+    //     setCurrentUser(userAuth);
+    //   }
+    // });
   }
 
   componentWillUnmount() {
