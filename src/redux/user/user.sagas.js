@@ -60,7 +60,7 @@ export function* signUp({ payload: { email, password, displayName } }) {
 
     console.log(user);
 
-    yield put(signUpSuccess);
+    yield put(signUpSuccess());
     yield getSnapshotFromUserAuth(user, { displayName });
   } catch (error) {
     console.log(error);
