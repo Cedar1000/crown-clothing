@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 
 //Router
@@ -21,39 +21,30 @@ const SignInWrapper = ({ currentUser }) => {
   return currentUser ? <Navigate to="/" replace /> : <SignInAndSignUpPage />;
 };
 
-class App extends React.Component {
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() => {
     checkUserSession();
-  }
+  }, [checkUserSession]);
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  return (
+    <div>
+      <Header />
 
-  render() {
-    return (
-      <div>
-        <Header />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
 
-        <Routes>
-          <Route path="/" element={<Homepage />} />
+        <Route path="/shop/*" element={<Shopage />} />
 
-          <Route path="/shop/*" element={<Shopage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
 
-          <Route path="/checkout" element={<CheckoutPage />} />
-
-          <Route
-            path="/signin"
-            element={<SignInWrapper currentUser={this.props.currentUser} />}
-          />
-        </Routes>
-      </div>
-    );
-  }
-}
+        <Route
+          path="/signin"
+          element={<SignInWrapper currentUser={currentUser} />}
+        />
+      </Routes>
+    </div>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
