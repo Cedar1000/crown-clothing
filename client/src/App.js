@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import { GlobalStyle } from './global.styles';
 
 //Router
 import { Route, Routes, Navigate } from 'react-router';
@@ -28,6 +28,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
 
       <Routes>
