@@ -11,16 +11,22 @@ import { createStructuredSelector } from 'reselect';
 import { checkUserSession } from './redux/user/user.actions';
 
 //Components
-import Shopage from './pages/shopage/shop.component';
 import Header from './components/header/header.component.jsx';
-import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component.jsx';
-import CheckoutPage from './pages/checkout/checkout.copmonent.jsx';
 
 const SignInWrapper = ({ currentUser }) => {
   return currentUser ? <Navigate to="/" replace /> : <SignInAndSignUpPage />;
 };
 
 const Homepage = lazy(() => import('./pages/homepage/homepage.component'));
+const Shopage = lazy(() => import('./pages/shopage/shop.component'));
+const SignInAndSignUpPage = lazy(() =>
+  import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component.jsx')
+);
+
+const CheckoutPage = lazy(() =>
+  import('./pages/checkout/checkout.copmonent.jsx')
+);
+
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
     checkUserSession();
@@ -41,13 +47,31 @@ const App = ({ checkUserSession, currentUser }) => {
           }
         />
 
-        <Route path="/shop/*" element={<Shopage />} />
+        <Route
+          path="/shop/*"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Shopage />
+            </Suspense>
+          }
+        />
 
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route
+          path="/checkout"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CheckoutPage />
+            </Suspense>
+          }
+        />
 
         <Route
           path="/signin"
-          element={<SignInWrapper currentUser={currentUser} />}
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <SignInWrapper currentUser={currentUser} />
+            </Suspense>
+          }
         />
       </Routes>
     </div>
