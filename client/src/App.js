@@ -12,6 +12,7 @@ import { checkUserSession } from './redux/user/user.actions';
 
 //Components
 import Header from './components/header/header.component.jsx';
+import Spinner from './components/spinner/spinner.component';
 
 const SignInWrapper = ({ currentUser }) => {
   return currentUser ? <Navigate to="/" replace /> : <SignInAndSignUpPage />;
@@ -41,7 +42,7 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route
           path="/"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <Homepage />{' '}
             </Suspense>
           }
@@ -50,7 +51,7 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route
           path="/shop/*"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <Shopage />
             </Suspense>
           }
@@ -59,7 +60,7 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route
           path="/checkout"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <CheckoutPage />
             </Suspense>
           }
@@ -68,7 +69,7 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route
           path="/signin"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <SignInWrapper currentUser={currentUser} />
             </Suspense>
           }
