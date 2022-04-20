@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { GlobalStyle } from './global.styles';
 
 //Router
@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { checkUserSession } from './redux/user/user.actions';
 
 //Components
-import Homepage from './pages/homepage/homepage.component';
 import Shopage from './pages/shopage/shop.component';
 import Header from './components/header/header.component.jsx';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component.jsx';
@@ -21,6 +20,7 @@ const SignInWrapper = ({ currentUser }) => {
   return currentUser ? <Navigate to="/" replace /> : <SignInAndSignUpPage />;
 };
 
+const Homepage = lazy(() => import('./pages/homepage/homepage.component'));
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
     checkUserSession();
@@ -32,7 +32,14 @@ const App = ({ checkUserSession, currentUser }) => {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Homepage />{' '}
+            </Suspense>
+          }
+        />
 
         <Route path="/shop/*" element={<Shopage />} />
 
