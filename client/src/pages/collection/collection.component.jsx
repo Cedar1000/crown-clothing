@@ -6,7 +6,12 @@ import CollectionItem from '../../components/collection-item/collection-item.com
 
 import { useParams } from 'react-router-dom';
 
-import './collection.styles.scss';
+// import './collection.styles.scss';
+import {
+  CollectionContainer,
+  TitleHeader,
+  ItemsDiv,
+} from './collections.styles';
 
 const CollectionPage = () => {
   const { categoryId } = useParams();
@@ -14,14 +19,14 @@ const CollectionPage = () => {
   const { title, items } = useSelector(selectCollection(categoryId));
 
   return (
-    <div className="collection-page">
-      <h2 className="title">{title}</h2>
-      <div className="items">
+    <CollectionContainer>
+      <TitleHeader>{title}</TitleHeader>
+      <ItemsDiv>
         {items.map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </ItemsDiv>
+    </CollectionContainer>
   );
 };
 
