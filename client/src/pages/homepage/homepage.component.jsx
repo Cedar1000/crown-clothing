@@ -6,10 +6,13 @@ import { HompageContainer } from './homepage.styles';
 
 import './homepage.styles.scss';
 
-const Homepage = () => (
-  <HompageContainer>
-    <Directory />
-  </HompageContainer>
-);
+const Homepage = () => {
+  throw Error;
+  return (
+    <HompageContainer>
+      <Directory />
+    </HompageContainer>
+  );
+};
 
 export default Homepage;

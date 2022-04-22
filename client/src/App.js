@@ -13,6 +13,7 @@ import { checkUserSession } from './redux/user/user.actions';
 //Components
 import Header from './components/header/header.component.jsx';
 import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundry/error-boundary.component';
 
 const SignInWrapper = ({ currentUser }) => {
   return currentUser ? <Navigate to="/" replace /> : <SignInAndSignUpPage />;
@@ -42,36 +43,44 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route
           path="/"
           element={
-            <Suspense fallback={<Spinner />}>
-              <Homepage />{' '}
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<Spinner />}>
+                <Homepage />
+              </Suspense>
+            </ErrorBoundary>
           }
         />
 
         <Route
           path="/shop/*"
           element={
-            <Suspense fallback={<Spinner />}>
-              <Shopage />
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<Spinner />}>
+                <Shopage />
+              </Suspense>
+            </ErrorBoundary>
           }
         />
 
         <Route
           path="/checkout"
           element={
-            <Suspense fallback={<Spinner />}>
-              <CheckoutPage />
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<Spinner />}>
+                <CheckoutPage />
+              </Suspense>
+            </ErrorBoundary>
           }
         />
 
         <Route
           path="/signin"
           element={
-            <Suspense fallback={<Spinner />}>
-              <SignInWrapper currentUser={currentUser} />
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<Spinner />}>
+                <SignInWrapper currentUser={currentUser} />
+              </Suspense>
+            </ErrorBoundary>
           }
         />
       </Routes>
