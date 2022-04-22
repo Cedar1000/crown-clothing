@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router';
+
+import Spinner from '../../components/spinner/spinner.component';
 
 import { createStructuredSelector } from 'reselect';
 import {
@@ -34,12 +36,20 @@ const ShopPage = ({
         <Route
           path=""
           element={
-            <CollectionsOverviewWithSpinner isLoading={isCollectionFetching} />
+            <Suspense fallback={<Spinner />}>
+              <CollectionsOverviewWithSpinner
+                isLoading={isCollectionFetching}
+              />
+            </Suspense>
           }
         />
         <Route
           path=":categoryId"
-          element={<CollectionWithSpinner isLoading={!isCollectionsLoaded} />}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <CollectionWithSpinner isLoading={!isCollectionsLoaded} />
+            </Suspense>
+          }
         />
       </Routes>
     </div>
