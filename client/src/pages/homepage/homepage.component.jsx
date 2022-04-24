@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 
 import Directory from '../../components/directory/directory.component';
 
@@ -6,13 +6,16 @@ import { HompageContainer } from './homepage.styles';
 
 import './homepage.styles.scss';
 
-const Homepage = () => {
-  throw Error;
-  return (
-    <HompageContainer>
+const Homepage = () => (
+  <HompageContainer>
+    <Profiler
+      id="Directory"
+      onRender={(id, phase, actualDuration) => {
+        console.log({ id, phase, actualDuration });
+      }}
+    >
       <Directory />
-    </HompageContainer>
-  );
-};
-
+    </Profiler>
+  </HompageContainer>
+);
 export default Homepage;
