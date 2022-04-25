@@ -31,7 +31,6 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
       additionalData
     );
     const snapShot = yield userRef.get();
-    console.log(snapShot);
 
     yield put(signInSuccess({ id: snapShot.id, ...snapShot.data() }));
   } catch (error) {
@@ -49,8 +48,6 @@ export function* signOut() {
 }
 
 export function* signUp({ payload: { email, password, displayName } }) {
-  console.log('sign up running');
-  console.log({ email, password, displayName });
   try {
     const { user } = yield createUserWithEmailAndPassword(
       auth,
@@ -58,12 +55,9 @@ export function* signUp({ payload: { email, password, displayName } }) {
       password
     );
 
-    console.log(user);
-
     yield put(signUpSuccess());
     yield getSnapshotFromUserAuth(user, { displayName });
   } catch (error) {
-    console.log(error);
     yield put(signUpFailure(error));
   }
 }
@@ -84,7 +78,6 @@ export function* signInWithEmail({ payload: { email, password } }) {
 
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
-    console.log(error);
     put(signInFailure(error));
   }
 }

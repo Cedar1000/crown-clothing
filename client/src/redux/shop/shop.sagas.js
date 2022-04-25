@@ -27,7 +27,6 @@ export function* fetchCollectionsAsync() {
 }
 
 export function* fetchCollectionsStart() {
-  console.log('fetch listener');
   yield takeLatest(
     shopActionTypes.FETCH_COLLECTIONS_START,
     fetchCollectionsAsync

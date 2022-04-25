@@ -4,7 +4,6 @@ import userActionTypes from '../user/user.types';
 import { clearCart } from './cart.actions';
 
 export function* clearCartOnSignOut() {
-  console.log('yo');
   yield put(clearCart());
 }
 

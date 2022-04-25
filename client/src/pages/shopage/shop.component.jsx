@@ -26,7 +26,6 @@ const ShopPage = ({
   isCollectionsLoaded,
 }) => {
   useEffect(() => {
-    console.log('I am mounted');
     fetchCollectionsStart();
   }, [fetchCollectionsStart]);
 
