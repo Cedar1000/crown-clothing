@@ -11,11 +11,12 @@ import {
 } from '../../redux/shop/shop.selectors';
 
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
-
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-import Collection from '../collection/collection.component';
-
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
+
+const CollectionsOverview = lazy(() =>
+  import('../../components/collections-overview/collections-overview.component')
+);
+const Collection = lazy(() => import('../collection/collection.component'));
 
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionWithSpinner = WithSpinner(Collection);
