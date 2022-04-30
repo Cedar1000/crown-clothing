@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(cors());
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build', 'index.html')));
 }
 
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+  res.sendFile(path.join(__dirname, './client/build', 'index.html'))
 );
 
 app.listen(port, (error) => {
@@ -37,6 +37,13 @@ app.post('/payment', (req, res) => {
 
   app.get('/service-worker.js', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+  });
+
+  app.get('/test', (req, res) => {
+    res.status(200).json({
+      status: 'success',
+      message: 'Hello world',
+    });
   });
 
   stripe.charges.create(body, (stripeErr, stripeRes) => {
