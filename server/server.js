@@ -29,10 +29,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/service-worker.js', (req, res) => {
-  console.log(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
-  res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
-});
+// app.get('/service-worker.js', (req, res) => {
+//   console.log(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+//   res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+// });
 
 app.post('/payment', (req, res) => {
   const body = {
